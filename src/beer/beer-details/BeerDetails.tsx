@@ -1,38 +1,39 @@
 import { BeerApi } from '../beer-api';
 import { useLocation } from 'react-router-dom';
-import { useHeaderLink } from '../../layout/header/header.context';
+import { HeaderContext } from '../../layout/header/header.context';
 import { useEffect } from 'react';
 
 function Fragment({ title, value }: { title: string; value: string }) {
   return (
     <div className="mt-1">
-      <h3 className="font-semibold">{ title }:</h3>
-      <span className="pl-2">{ value }</span>
+      <h3 className="font-semibold">{title}:</h3>
+      <span className="pl-2">{value}</span>
     </div>
   );
 }
 
 export default function BeerDetails() {
   const id = +(new URLSearchParams(useLocation().search).get('id'))!;
-  const beers = BeerApi.useBeerFetchById(id);
-  const beer = beers?.data?.[0];
-  const { setHeaderLink } = useHeaderLink()!;
+  const wrapper = BeerApi.useBeerFetchById(id)!;
+  const beer = wrapper.data;
+  const setHeaderLink = HeaderContext.useSet()!;
 
   useEffect(() => {
     if (beer?.name) {
       setHeaderLink({
         text: beer.name,
         path: `/beer/details/${beer.id}`
-      })
+      });
     }
+
     return () => setHeaderLink(null);
   }, [beer, setHeaderLink]);
 
   return (
     <div>
       <section className="px-2 py-1 flex mt-2 container mx-auto">
-        {beers?.loading && <div>Loading...</div>}
-        {beers?.error && <div>An error has occured</div>}
+        {wrapper?.loading && <div>Loading...</div>}
+        {wrapper?.error && <div>An error has occured</div>}
         {beer && <div className="border-r w-64">
           <img
             className="h-96 mx-auto"

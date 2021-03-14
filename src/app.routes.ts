@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { RoutesConfig } from './layout/router-outlet/RouterOutlet';
+import { RoutesConfig } from './shared/router-outlet/RouterOutlet';
 
 
 export const appRoutes: RoutesConfig = [

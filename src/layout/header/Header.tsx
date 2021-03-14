@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useHeaderLink } from './header.context';
+import { HeaderContext } from './header.context';
 
 export default function Header() {
-  const { headerLink } = useHeaderLink()!;
+  const headerLink = HeaderContext.useGet();
 
   return (
     <nav className="bg-white px-6 py-4 shadow">

@@ -15,7 +15,7 @@ export const BeerApi = {
     return responseWrapper!;
   },
 
-  useBeerFetchById(id: number|null): ResponseWrapper<BeerItem[]> {
+  useBeerFetchById(id: number|null): ResponseWrapper<BeerItem> {
     const { setRequestParams, responseWrapper} = useRequest<BeerItem[]>();
     const url = id ? `${this.apiUrl}/${id}` : undefined;
 
@@ -29,7 +29,10 @@ export const BeerApi = {
       };
     }
 
-    return responseWrapper!;
+    return {
+      ...responseWrapper!,
+      data: responseWrapper?.data?.[0] ?? null,
+    };
   }
 }
 

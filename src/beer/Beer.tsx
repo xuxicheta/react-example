@@ -1,5 +1,5 @@
 import React from 'react';
-import RouterOutlet from '../layout/router-outlet/RouterOutlet';
+import RouterOutlet from '../shared/router-outlet/RouterOutlet';
 import { beerRoutes } from './beer.routes';
 
 export default function Beer() {
