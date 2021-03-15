@@ -9,7 +9,7 @@ function Fragment({ title, value }: { title: string; value: string }) {
   );
 }
 
-export default function BeerShort({ beer }: { beer: BeerItem }) {
+export function BeerShort({ beer }: { beer: BeerItem }) {
   return (
     <div className="block p-5 bg-white rounded-md shadow-lg sm:w-full m-3 transform cursor-pointer hover:translate-x-2 transition-all">
       <section className="flex">

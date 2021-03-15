@@ -12,7 +12,7 @@ function Fragment({ title, value }: { title: string; value: string }) {
   );
 }
 
-export default function BeerDetails() {
+export function BeerDetails() {
   const id = +(new URLSearchParams(useLocation().search).get('id'))!;
   const wrapper = BeerApi.useBeerFetchById(id)!;
   const beer = wrapper.data;

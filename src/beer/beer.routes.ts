@@ -1,6 +1,7 @@
-import BeerList from './beer-list/BeerList';
-import BeerDetails from './beer-details/BeerDetails';
+
 import { RoutesConfig } from '../shared/router-outlet/RouterOutlet';
+import { BeerList } from './beer-list/BeerList';
+import { BeerDetails } from './beer-details/BeerDetails';
 
 
 export const beerRoutes: RoutesConfig = [

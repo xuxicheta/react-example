@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { BeerItem } from './beer.interface';
 
 
-
 export const BeerApi = {
   apiUrl: 'https://api.punkapi.com/v2/beers',
+
   useBeerFetch(): ResponseWrapper<BeerItem[]> {
-    const { setRequestParams, responseWrapper} = useRequest<BeerItem[]>();
+    console.log('useBeerFetch', this.apiUrl)
+    const { setRequestParams, responseWrapper } = useRequest<BeerItem[]>();
     const url = this.apiUrl;
 
     useEffect(() => setRequestParams({ url }), [setRequestParams, url]);
@@ -15,8 +16,8 @@ export const BeerApi = {
     return responseWrapper!;
   },
 
-  useBeerFetchById(id: number|null): ResponseWrapper<BeerItem> {
-    const { setRequestParams, responseWrapper} = useRequest<BeerItem[]>();
+  useBeerFetchById(id: number | null): ResponseWrapper<BeerItem> {
+    const { setRequestParams, responseWrapper } = useRequest<BeerItem[]>();
     const url = id ? `${this.apiUrl}/${id}` : undefined;
 
     useEffect(() => setRequestParams({ url }), [setRequestParams, url]);
@@ -34,6 +35,6 @@ export const BeerApi = {
       data: responseWrapper?.data?.[0] ?? null,
     };
   }
-}
+} as const;
 
 
