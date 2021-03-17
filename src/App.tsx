@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 import Header from './layout/header/Header';
 import RouterOutlet from './shared/router-outlet/RouterOutlet';
 import { appRoutes } from './app.routes';

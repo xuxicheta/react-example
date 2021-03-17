@@ -1,6 +1,6 @@
 import { BeerItem } from '../beer.interface';
 
-function Fragment({ title, value }: { title: string; value: string }) {
+function Piece({ title, value }: { title: string; value: string }) {
   return (
     <div>
       <small className="capitalize">{title}:</small>
@@ -11,7 +11,7 @@ function Fragment({ title, value }: { title: string; value: string }) {
 
 export function BeerShort({ beer }: { beer: BeerItem }) {
   return (
-    <div className="block p-5 bg-white rounded-md shadow-lg sm:w-full m-3 transform cursor-pointer hover:translate-x-2 transition-all">
+    <div className="block p-5 my-3 bg-white rounded-md shadow-lg transform cursor-pointer hover:translate-x-2 transition-all">
       <section className="flex">
         <div className="pl-2 pr-6">
           <img
@@ -22,11 +22,11 @@ export function BeerShort({ beer }: { beer: BeerItem }) {
         </div>
 
         <div>
-          <Fragment
+          <Piece
             title="name"
             value={beer.name}
           />
-          <Fragment
+          <Piece
             title="tagline"
             value={beer.tagline}
           />

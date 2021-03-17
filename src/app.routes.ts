@@ -13,3 +13,8 @@ export const appRoutes: RoutesConfig = [
     redirectTo: 'beer'
   }
 ];
+
+
+export function AppRoutes() {
+
+}

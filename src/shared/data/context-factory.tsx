@@ -2,9 +2,9 @@ import { createContext, Dispatch, SetStateAction, useContext, useState } from 'r
 
 export function contextFactory<D>() {
   const context = createContext<[D, Dispatch<SetStateAction<D>>] | undefined>(undefined);
-  const useGet: () => D|undefined = () => useContext(context)?.[0];
-  const useSet: () => Dispatch<SetStateAction<D>>|undefined = () => useContext(context)?.[1];
+  const useValue: () => D|undefined = () => useContext(context)?.[0];
+  const useSetValue: () => Dispatch<SetStateAction<D>>|undefined = () => useContext(context)?.[1];
   const Provider = (props: any) => (<context.Provider value={useState<D | undefined>(undefined)} {...props} />);
 
-  return { context, useGet, useSet, Provider };
+  return { context, useGet: useValue, useSet: useSetValue, Provider };
 }

@@ -13,14 +13,14 @@ export function BeerSearch({ onSearch = (v: string) => undefined }: { onSearch?:
 
 
   return (
-    <form className="p-5 ">
-      <label className="pl-3 border border-gray-300 flex sm:w-full">
+    <form className="my-4">
+      <label className="flex">
         <span>Search:</span>
 
         <input
-          className="ml-4 w-full outline-none"
+          className="ml-4 pl-2 w-full outline-none border border-gray-300"
           type="text"
-          placeholder="...enter search text here"
+          placeholder="...start typing to search"
           value={value}
           onChange={onChange}
         />

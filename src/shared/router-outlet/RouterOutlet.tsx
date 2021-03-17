@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
-import React, { ComponentType, createContext, Suspense, useContext } from 'react';
+import { ComponentType, createContext, Suspense, useContext } from 'react';
 
 
 export interface RouteConfig<P = any> {
@@ -11,7 +11,27 @@ export interface RouteConfig<P = any> {
 
 export type RoutesConfig = RouteConfig[];
 
+interface CommonRouteProps {
+  route: RouteConfig;
+  path: string;
+  parent: string;
+}
+
 export const routeContext = createContext('');
+
+function CommonRoute({ route, path, parent }: CommonRouteProps) {
+  if (route.component) {
+    return (
+      <routeContext.Provider value={path}>
+        <route.component/>
+      </routeContext.Provider>
+    );
+  }
+  if (route.redirectTo) {
+    return (<Redirect to={`${parent}/${route.redirectTo}`}/>);
+  }
+  return (<div>Empty route</div>);
+}
 
 export default function RouterOutlet({ routes }: { routes: RoutesConfig }) {
   const parent = useContext(routeContext);
@@ -19,34 +39,22 @@ export default function RouterOutlet({ routes }: { routes: RoutesConfig }) {
   return (
     <Switch>
       <Suspense fallback={<div>Загрузка...</div>}>
-        {
-          routes.map((route) => {
-            let result = (<div>Empty route</div>);
-            const path = `${parent}/${route.path}`;
-            const to = `${parent}/${route.redirectTo}`;
-
-            if (route.component) {
-              result = (
-                <routeContext.Provider value={path}>
-                  <route.component/>
-                </routeContext.Provider>
-              );
-            }
-            if (route.redirectTo) {
-              result = (<Redirect to={to!}/>);
-            }
-
-            return (
-              <Route
-                key={path}
+        {routes.map((route) => {
+          const path = `${parent}/${route.path}`;
+          return (
+            <Route
+              key={path}
+              path={path}
+              exact={route.exact}
+            >
+              <CommonRoute
+                route={route}
                 path={path}
-                exact={route.exact}
-              >
-                {result}
-              </Route>
-            );
-          })
-        }
+                parent={parent}
+              />
+            </Route>
+          );
+        })}
       </Suspense>
     </Switch>
   );
