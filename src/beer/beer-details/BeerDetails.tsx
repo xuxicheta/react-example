@@ -17,7 +17,7 @@ export function BeerDetails() {
   const id = +(new URLSearchParams(useLocation().search).get('id'))!;
   const beersWrapper = BeerApi.useBeerFetchById(id);
   const beer = beersWrapper?.data;
-  const setHeaderLink = HeaderContext.useSet()!;
+  const setHeaderLink = HeaderContext.useSetValue()!;
 
   useEffect(() => {
     if (beer?.name) {

@@ -6,5 +6,5 @@ export function contextFactory<D>() {
   const useSetValue: () => Dispatch<SetStateAction<D>>|undefined = () => useContext(context)?.[1];
   const Provider = (props: any) => (<context.Provider value={useState<D | undefined>(undefined)} {...props} />);
 
-  return { context, useGet: useValue, useSet: useSetValue, Provider };
+  return { context, useValue, useSetValue, Provider };
 }

@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 
-export function BeerSearch({ onSearch = () => undefined }: { onSearch?: (s?: string) => void }) {
+export function BeerSearch({ onSearch = () => undefined }: { onSearch?: (s?: string|undefined) => void }) {
   const [value, setValue] = useState<string>('');
   const onSearchDebounced = useRef(debounce(onSearch, 300)).current;
 
