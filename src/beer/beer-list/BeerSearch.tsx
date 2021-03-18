@@ -1,7 +1,11 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, ReactElement, SetStateAction, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 
-export function BeerSearch({ onSearch = () => undefined }: { onSearch?: (s?: string|undefined) => void }) {
+interface BeerSearchProps {
+  onSearch?: Dispatch<SetStateAction<string>>
+}
+
+export function BeerSearch({ onSearch = () => undefined }: BeerSearchProps): ReactElement {
   const [value, setValue] = useState<string>('');
   const onSearchDebounced = useRef(debounce(onSearch, 300)).current;
 
