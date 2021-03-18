@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { ComponentType, createContext, Suspense, useContext } from 'react';
+import { ComponentType, createContext, ReactElement, Suspense, useContext } from 'react';
 
 
 export interface RouteConfig<P = any> {
@@ -19,7 +19,7 @@ interface CommonRouteProps {
 
 export const routeContext = createContext('');
 
-function CommonRoute({ route, path, parent }: CommonRouteProps) {
+function CommonRoute({ route, path, parent }: CommonRouteProps): ReactElement {
   if (route.component) {
     return (
       <routeContext.Provider value={path}>
@@ -33,7 +33,7 @@ function CommonRoute({ route, path, parent }: CommonRouteProps) {
   return (<div>Empty route</div>);
 }
 
-export default function RouterOutlet({ routes }: { routes: RoutesConfig }) {
+export default function RouterOutlet({ routes }: { routes: RoutesConfig }): ReactElement {
   const parent = useContext(routeContext);
 
   return (

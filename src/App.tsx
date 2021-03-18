@@ -3,15 +3,16 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from './layout/header/Header';
 import RouterOutlet from './shared/router-outlet/RouterOutlet';
 import { appRoutes } from './app.routes';
-import { HeaderContext } from './layout/header/header.context';
+import { RootStore } from './shared/root.store';
+
 
 export default function App() {
   return (
     <BrowserRouter>
-      <HeaderContext.Provider>
+      <RootStore.Provider>
         <Header/>
         <RouterOutlet routes={appRoutes}/>
-      </HeaderContext.Provider>
+      </RootStore.Provider>
     </BrowserRouter>
   );
 }

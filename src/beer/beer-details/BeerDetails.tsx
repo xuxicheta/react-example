@@ -1,8 +1,24 @@
 import { BeerApi } from '../beer-api';
 import { useLocation } from 'react-router-dom';
-import { HeaderContext } from '../../layout/header/header.context';
 import { useEffect } from 'react';
-import { DataWrapper } from '../../shared/data-wrapper';
+import { Unwrap } from '../../shared/Unwrap';
+import { BeerItem } from '../beer.interface';
+import { RootStore } from '../../shared/root.store';
+
+
+function useSetHeaderLink(beer: BeerItem | null) {
+  const [, setHeaderLink] = RootStore.useStore('headerLink');
+  useEffect(() => {
+    if (beer?.name) {
+      setHeaderLink({
+        text: beer.name,
+        path: `/beer/details/${beer.id}`,
+      });
+    }
+
+    return () => setHeaderLink(null);
+  }, [beer]);
+}
 
 function Piece({ title, value }: { title: string; value: string }) {
   return (
@@ -17,23 +33,12 @@ export function BeerDetails() {
   const id = +(new URLSearchParams(useLocation().search).get('id'))!;
   const beersWrapper = BeerApi.useBeerFetchById(id);
   const beer = beersWrapper?.data;
-  const setHeaderLink = HeaderContext.useSet()!;
-
-  useEffect(() => {
-    if (beer?.name) {
-      setHeaderLink({
-        text: beer.name,
-        path: `/beer/details/${beer.id}`,
-      });
-    }
-
-    return () => setHeaderLink(null);
-  }, [beer]);
+  useSetHeaderLink(beer);
 
   return (
     <div>
       <section className="px-2 py-1 flex mt-2 container mx-auto">
-        <DataWrapper wrapper={beersWrapper}>
+        <Unwrap wrapper={beersWrapper}>
           {beer && <>
             <div className="border-r w-64">
               <img
@@ -70,7 +75,7 @@ export function BeerDetails() {
             </div>
           </>}
 
-        </DataWrapper>
+        </Unwrap>
       </section>
     </div>
   );

@@ -1,6 +1,12 @@
 import { BeerItem } from '../beer.interface';
+import { ReactElement } from 'react';
 
-function Piece({ title, value }: { title: string; value: string }) {
+interface PieceProps {
+  title: string;
+  value: string;
+}
+
+function Piece({ title, value }: PieceProps): ReactElement {
   return (
     <div>
       <small className="capitalize">{title}:</small>
@@ -9,7 +15,11 @@ function Piece({ title, value }: { title: string; value: string }) {
   );
 }
 
-export function BeerShort({ beer }: { beer: BeerItem }) {
+interface BeerShortProps {
+  beer: BeerItem
+}
+
+export function BeerShort({ beer }: BeerShortProps): ReactElement {
   return (
     <div className="block p-5 my-3 bg-white rounded-md shadow-lg transform cursor-pointer hover:translate-x-2 transition-all">
       <section className="flex">

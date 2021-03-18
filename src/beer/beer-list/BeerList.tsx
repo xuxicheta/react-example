@@ -3,19 +3,18 @@ import { BeerApi } from '../beer-api';
 import { Link } from 'react-router-dom';
 import { BeerSearch } from './BeerSearch';
 import { BeerShort } from './BeerShort';
-import { useState } from 'react';
-import { DataWrapper } from '../../shared/data-wrapper';
+import { ReactElement, useState } from 'react';
+import { Unwrap } from '../../shared/Unwrap';
 
 
-export function BeerList() {
+export function BeerList(): ReactElement {
   const [search, setSearch] = useState('');
   const beers = BeerApi.useBeerFetch(search);
-
 
   return (
     <div className="container block mx-auto">
       <BeerSearch onSearch={setSearch}/>
-      <DataWrapper wrapper={beers}>
+      <Unwrap wrapper={beers}>
         {beers?.data?.length === 0 && <div className="pl-3">No items found</div>}
         {(beers?.data ?? []).map(beer => {
           return (
@@ -30,7 +29,7 @@ export function BeerList() {
             </Link>
           );
         })}
-      </DataWrapper>
+      </Unwrap>
     </div>
   );
 }

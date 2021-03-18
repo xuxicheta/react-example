@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { HeaderContext } from './header.context';
+import { RootStore } from '../../shared/root.store';
 
 export default function Header() {
-  const headerLink = HeaderContext.useGet();
+  const [headerLink] = RootStore.useStore('headerLink');
 
   return (
     <nav className="bg-yellow-900 text-white px-6 py-4 shadow">

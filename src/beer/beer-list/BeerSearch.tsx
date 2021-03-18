@@ -1,16 +1,13 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, ReactElement, SetStateAction, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 
-export function BeerSearch({ onSearch = () => undefined }: { onSearch?: (s?: string) => void }) {
+interface BeerSearchProps {
+  onSearch?: Dispatch<SetStateAction<string>>
+}
+
+export function BeerSearch({ onSearch = () => undefined }: BeerSearchProps): ReactElement {
   const [value, setValue] = useState<string>('');
   const onSearchDebounced = useRef(debounce(onSearch, 300)).current;
-
-  const onChange = (event: ChangeEvent) => {
-    const { value } = event.target as HTMLInputElement;
-    setValue(value);
-    onSearchDebounced(value);
-  };
-
 
   return (
     <form className="my-4">
@@ -22,7 +19,11 @@ export function BeerSearch({ onSearch = () => undefined }: { onSearch?: (s?: str
           type="text"
           placeholder="...start typing to search"
           value={value}
-          onChange={onChange}
+          onChange={(event: ChangeEvent) => {
+            const { value } = event.target as HTMLInputElement;
+            setValue(value);
+            onSearchDebounced(value);
+          }}
         />
       </label>
     </form>

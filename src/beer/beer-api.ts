@@ -5,14 +5,6 @@ import { BeerItem } from './beer.interface';
 
 export const BeerApi = {
   apiUrl: 'https://api.punkapi.com/v2/beers',
-  useBeerFetchP(search = ''): Promise<BeerItem[]> {
-    const queryParams: Record<string, string> = {};
-    if (search) {
-      queryParams.beer_name = search;
-    }
-    const url = `${BeerApi.apiUrl}?${new URLSearchParams(queryParams)}`;
-    return fetch(url).then(res => res.json())
-  },
 
   useBeerFetch(search = ''): ResponseWrapper<BeerItem[]> {
     const { setRequestParams, responseWrapper } = useRequest<BeerItem[]>();
